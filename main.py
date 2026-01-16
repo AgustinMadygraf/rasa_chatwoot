@@ -1,4 +1,3 @@
-
 import os
 from fastapi import FastAPI, Request, HTTPException
 import httpx
@@ -29,11 +28,19 @@ async def webhook(secret: str, request: Request):
     if not account_id or not conversation_id:
         return {"ok": False, "error": "missing account_id or conversation_id"}
 
+    if not CHATWOOT_BASE_URL:
+        return {"ok": False, "error": "CHATWOOT_BASE_URL not set"}
+
     url = f"{CHATWOOT_BASE_URL}/api/v1/accounts/{account_id}/conversations/{conversation_id}/messages"
     headers = {"api_access_token": CHATWOOT_BOT_TOKEN}
     body = {"content": "Ok", "message_type": "outgoing"}
 
-    async with httpx.AsyncClient(timeout=10) as client:
-        resp = await client.post(url, headers=headers, json=body)
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.post(url, headers=headers, json=body)
+    except httpx.RequestError as e:
+        return {"ok": False, "error": "request error", "detail": str(e)}
+    except Exception as e:
+        return {"ok": False, "error": "unexpected error", "detail": str(e)}
 
     return {"ok": resp.status_code < 400, "status": resp.status_code, "detail": resp.text}
