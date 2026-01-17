@@ -1,0 +1,12 @@
+services:
+  rasa_chatwoot:
+    build: .
+    container_name: rasa_chatwoot
+    ports:
+      - "${PORT:-8000}:${PORT:-8000}"
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src  # Para desarrollo, hot-reload
+      - ./main.py:/app/main.py
