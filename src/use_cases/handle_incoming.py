@@ -1,5 +1,5 @@
 from typing import Any, Dict
-from src.ports.chatwoot_gateway import ChatwootGateway
+from src.use_cases.chatwoot_gateway import ChatwootGateway
 from src.shared.logger import get_logger
 
 logger = get_logger(__name__)

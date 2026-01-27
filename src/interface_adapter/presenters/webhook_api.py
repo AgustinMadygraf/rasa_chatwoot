@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Request
 
-from src.adapters.chatwoot_http import ChatwootHTTPAdapter
-from src.domain.usecases.handle_incoming import HandleIncomingMessageUseCase
-from src.controllers.webhook_controller import WebhookController
+from src.interface_adapter.gateways.chatwoot_http import ChatwootHTTPAdapter
+from src.use_cases.handle_incoming import HandleIncomingMessageUseCase
+from src.interface_adapter.controller.webhook_controller import WebhookController
 
 app = FastAPI()
 

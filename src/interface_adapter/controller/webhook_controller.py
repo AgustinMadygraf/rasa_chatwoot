@@ -1,7 +1,7 @@
 from fastapi import Request, HTTPException
 from src.shared import config
 from src.shared.logger import get_logger
-from src.domain.usecases.handle_incoming import HandleIncomingMessageUseCase
+from src.use_cases.handle_incoming import HandleIncomingMessageUseCase
 
 logger = get_logger(__name__)
 
