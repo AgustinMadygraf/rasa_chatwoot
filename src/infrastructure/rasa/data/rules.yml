@@ -40,3 +40,18 @@ rules:
     steps:
       - intent: elegir_acabado
       - action: utter_acabado
+
+  - rule: consulta proyecto
+    steps:
+      - intent: consulta_proyecto
+      - action: utter_consulta_proyecto
+
+  - rule: pedir sugerencias
+    steps:
+      - intent: pedir_sugerencias
+      - action: utter_sugerencias
+
+  - rule: fallback
+    steps:
+      - intent: nlu_fallback
+      - action: utter_fallback

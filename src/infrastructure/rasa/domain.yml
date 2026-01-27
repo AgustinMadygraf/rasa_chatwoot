@@ -16,8 +16,35 @@ intents:
   - preguntar_tamano
   - informar_cantidad
   - elegir_acabado
+  - consulta_proyecto
+  - pedir_sugerencias
   - desafio_bot
   - nlu_fallback
+
+entities:
+  - presupuesto
+  - rubro
+  - objetivo
+
+slots:
+  presupuesto:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: presupuesto
+  rubro:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: rubro
+  objetivo:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: objetivo
 
 responses:
   utter_saludo:
@@ -27,7 +54,7 @@ responses:
   utter_soy_un_bot:
     - text: "Soy un asistente virtual de Madypack para bolsas de papel personalizadas."
   utter_fallback:
-    - text: "Disculpe, no entendí"
+    - text: "Disculpe, no entendi"
   utter_catalogo:
     - text: "Trabajamos bolsas de papel personalizadas con manijas de cuerdas de papel retorcida. Puedo ayudarte con tamanos, materiales y acabados."
   utter_precio_base:
@@ -50,6 +77,10 @@ responses:
     - text: "Cuantas bolsas necesitas? Indicame la cantidad aproximada."
   utter_acabado:
     - text: "Preferis acabado mate o brillo? Tambien podemos hacer laminado."
+  utter_consulta_proyecto:
+    - text: "Gracias por la info. Para sugerirte una opcion economica, decime tamano, cantidad, tipo de papel (kraft o blanco) y acabado (mate o brillo)."
+  utter_sugerencias:
+    - text: "Puedo sugerirte opciones economicas en kraft con manija de cuerda retorcida. Decime tamano y cantidad para ajustarlo."
 
 session_config:
   session_expiration_time: 60

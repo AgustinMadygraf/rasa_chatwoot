@@ -33,3 +33,10 @@ stories:
     steps:
       - intent: elegir_acabado
       - action: utter_acabado
+
+  - story: consulta de proyecto y sugerencias
+    steps:
+      - intent: consulta_proyecto
+      - action: utter_consulta_proyecto
+      - intent: pedir_sugerencias
+      - action: utter_sugerencias

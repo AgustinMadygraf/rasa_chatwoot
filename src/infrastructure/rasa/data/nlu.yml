@@ -72,6 +72,31 @@ nlu:
       - me pueden contactar
       - necesito contacto
       - dejame tus datos
+  - intent: consulta_proyecto
+    examples: |
+      - quiero mas informacion para un proyecto
+      - estoy armando un local y necesito packaging
+      - tengo un proyecto y necesito bolsas [economicas](presupuesto)
+      - abro un local y necesito bolsas personalizadas
+      - proyecto para un local de [medias](rubro)
+      - packaging economico para arrancar
+      - necesito opciones economicas para empezar
+      - estoy con un proyecto para abrir un local de medias y necesito packaging economico
+      - necesito packaging economico para arrancar con un local exclusivo de medias
+      - busco bolsas personalizadas economicas para un local de medias
+      - presupuesto bajo
+      - necesito algo [economico](presupuesto)
+      - quiero una opcion [economica](presupuesto)
+      - presupuesto economico para arrancar
+      - busco algo economico para empezar
+      - estoy con un proyecto para abrir un local exclusivo de [medias](rubro) y necesito packaging [economico](presupuesto)
+      - necesito packaging [economico](presupuesto) para [arrancar](objetivo)
+  - intent: pedir_sugerencias
+    examples: |
+      - acepto sugerencias
+      - que me sugeris?
+      - recomiendame opciones
+      - que me recomiendas
   - intent: preguntar_tamano
     examples: |
       - que tamanos tienen
