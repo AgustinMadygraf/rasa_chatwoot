@@ -1,12 +1,42 @@
 version: "3.1"
 
 rules:
-  - rule: decir chau
+  - rule: despedida
     steps:
       - intent: despedida
       - action: utter_despedida
 
-  - rule: responder a bot
+  - rule: responder bot
     steps:
       - intent: desafio_bot
       - action: utter_soy_un_bot
+
+  - rule: pedir contacto
+    steps:
+      - intent: pedir_contacto
+      - action: utter_contacto
+
+  - rule: pedir envio
+    steps:
+      - intent: preguntar_envio
+      - action: utter_envio
+
+  - rule: preguntar minimo
+    steps:
+      - intent: preguntar_minimo
+      - action: utter_minimo
+
+  - rule: preguntar tamano
+    steps:
+      - intent: preguntar_tamano
+      - action: utter_tamano
+
+  - rule: informar cantidad
+    steps:
+      - intent: informar_cantidad
+      - action: utter_cantidad
+
+  - rule: elegir acabado
+    steps:
+      - intent: elegir_acabado
+      - action: utter_acabado

@@ -26,18 +26,70 @@ nlu:
       - no
       - nunca
       - no gracias
-  - intent: estado_bien
+  - intent: pedir_catalogo
     examples: |
-      - genial
-      - muy bien
-      - excelente
-      - feliz
-  - intent: estado_mal
+      - quiero ver el catalogo
+      - tienen catalogo?
+      - muestrenme opciones de bolsas
+      - que modelos de bolsas tienen
+  - intent: pedir_precio
     examples: |
-      - mal
-      - triste
-      - no muy bien
-      - cansado
+      - cuanto cuesta
+      - precio por bolsa
+      - necesito precio
+      - cuanto sale una bolsa personalizada
+  - intent: pedir_diseno
+    examples: |
+      - pueden imprimir mi logo
+      - quiero diseno personalizado
+      - hacen impresion personalizada?
+      - pueden hacer mi diseno
+  - intent: preguntar_minimo
+    examples: |
+      - cual es el minimo de produccion
+      - minimo de pedido
+      - pedido minimo
+  - intent: preguntar_envio
+    examples: |
+      - hacen envios?
+      - envian a mi ciudad
+      - cuanto cuesta el envio
+  - intent: preguntar_material
+    examples: |
+      - de que material son
+      - papel kraft o blanco?
+      - que tipo de papel usan
+      - tienen manijas de cuerda?
+  - intent: pedir_cotizacion
+    examples: |
+      - quiero una cotizacion
+      - me pasas presupuesto?
+      - necesito una cotizacion
+      - cuanto me saldria
+  - intent: pedir_contacto
+    examples: |
+      - quiero hablar con un asesor
+      - me pueden contactar
+      - necesito contacto
+      - dejame tus datos
+  - intent: preguntar_tamano
+    examples: |
+      - que tamanos tienen
+      - que tamano puedo pedir
+      - tamanos disponibles
+      - medidas de las bolsas
+  - intent: informar_cantidad
+    examples: |
+      - necesito 100 bolsas
+      - quiero 500 unidades
+      - serian 1000 bolsas
+      - unas 200 bolsas
+  - intent: elegir_acabado
+    examples: |
+      - acabado mate
+      - acabado brillo
+      - quiero laminado
+      - prefiero mate
   - intent: desafio_bot
     examples: |
       - eres un bot?

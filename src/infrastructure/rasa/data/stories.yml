@@ -1,19 +1,35 @@
 version: "3.1"
 
 stories:
-  - story: saludo feliz
+  - story: saludo y catalogo
     steps:
       - intent: saludo
       - action: utter_saludo
-      - intent: estado_bien
-      - action: utter_feliz
+      - intent: pedir_catalogo
+      - action: utter_catalogo
 
-  - story: saludo triste
+  - story: consulta precio y cotizacion
     steps:
-      - intent: saludo
-      - action: utter_saludo
-      - intent: estado_mal
-      - action: utter_animar
-      - action: utter_te_ayudo
-      - intent: afirmar
-      - action: utter_feliz
+      - intent: pedir_precio
+      - action: utter_precio_base
+      - intent: pedir_cotizacion
+      - action: utter_cotizacion
+
+  - story: materiales y diseno
+    steps:
+      - intent: preguntar_material
+      - action: utter_material
+      - intent: pedir_diseno
+      - action: utter_diseno
+
+  - story: tamanos y cantidades
+    steps:
+      - intent: preguntar_tamano
+      - action: utter_tamano
+      - intent: informar_cantidad
+      - action: utter_cantidad
+
+  - story: acabados
+    steps:
+      - intent: elegir_acabado
+      - action: utter_acabado
