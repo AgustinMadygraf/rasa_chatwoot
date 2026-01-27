@@ -4,6 +4,7 @@ from typing import Any, Dict
 from src.entities.message import Message
 from src.use_cases.chatwoot_gateway import ChatwootGateway
 from src.use_cases.conversation_store import ConversationStore
+from src.use_cases.rasa_gateway import RasaGateway
 from src.infrastructure.memory.noop_conversation_store import NoopConversationStore
 from src.shared.logger import get_logger
 
@@ -11,9 +12,15 @@ logger = get_logger(__name__)
 
 
 class HandleIncomingMessageUseCase:
-    def __init__(self, gateway: ChatwootGateway, store: ConversationStore | None = None):
+    def __init__(
+        self,
+        gateway: ChatwootGateway,
+        store: ConversationStore | None = None,
+        rasa: RasaGateway | None = None,
+    ):
         self.gateway = gateway
         self.store = store or NoopConversationStore()
+        self.rasa = rasa
 
     async def execute(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         # Only react to incoming messages
@@ -49,6 +56,13 @@ class HandleIncomingMessageUseCase:
                 logger.exception("Failed to append incoming message to conversation store")
 
         content = "Ok"
+        if self.rasa and content_in:
+            try:
+                responses = await self.rasa.send_message(str(conversation_id), str(content_in))
+                if responses:
+                    content = responses[0]
+            except Exception:
+                logger.exception("Error getting response from Rasa, falling back to default content")
         logger.info("Sending reply content='%s' to account=%s conv=%s", content, account_id, conversation_id)
 
         try:
@@ -59,5 +73,19 @@ class HandleIncomingMessageUseCase:
 
         logger.info("Chatwoot response status=%s", status)
         logger.debug("Chatwoot response body=%s", text)
+
+        if content:
+            try:
+                await self.store.append_message(
+                    Message(
+                        account_id=account_id,
+                        conversation_id=conversation_id,
+                        content=str(content),
+                        sender_id=None,
+                        created_at=datetime.utcnow(),
+                    )
+                )
+            except Exception:
+                logger.exception("Failed to append outgoing message to conversation store")
 
         return {"ok": status < 400, "status": status, "detail": text}

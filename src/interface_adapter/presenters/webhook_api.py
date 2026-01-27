@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 
 from src.interface_adapter.gateways.chatwoot_http import ChatwootHTTPAdapter
 from src.infrastructure.memory.in_memory_conversation_store import InMemoryConversationStore
+from src.infrastructure.rasa.rasa_http import RasaHTTPGateway
 from src.use_cases.handle_incoming import HandleIncomingMessageUseCase
 from src.interface_adapter.controller.webhook_controller import WebhookController
 
@@ -9,7 +10,8 @@ app = FastAPI()
 
 adapter = ChatwootHTTPAdapter()
 store = InMemoryConversationStore()
-usecase = HandleIncomingMessageUseCase(adapter, store=store)
+rasa = RasaHTTPGateway()
+usecase = HandleIncomingMessageUseCase(adapter, store=store, rasa=rasa)
 controller = WebhookController(usecase)
 
 

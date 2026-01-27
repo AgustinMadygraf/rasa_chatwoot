@@ -22,11 +22,17 @@ def test_webhook_accepts_incoming(monkeypatch):
     monkeypatch.setattr(config, "CHATWOOT_BOT_TOKEN", "token")
 
     from src.interface_adapter.gateways import chatwoot_http
+    from src.infrastructure.rasa import rasa_http
 
     async def _fake_send(self, account_id, conversation_id, content):
         return 200, "ok"
 
     monkeypatch.setattr(chatwoot_http.ChatwootHTTPAdapter, "send_message", _fake_send)
+
+    async def _fake_rasa(self, sender_id, text):
+        return ["respuesta"]
+
+    monkeypatch.setattr(rasa_http.RasaHTTPGateway, "send_message", _fake_rasa)
 
     client = TestClient(app)
     payload = {
