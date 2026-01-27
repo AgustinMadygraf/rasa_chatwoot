@@ -28,18 +28,11 @@ class ChatwootHTTPAdapter(ChatwootGateway):
         body = {"content": content, "message_type": "outgoing"}
 
         logger.info("Sending message to Chatwoot %s", url)
-        logger.debug("Request headers=%s body=%s", headers, body)
         try:
             status, resp_text = await self.client.post_json(url, headers=headers, body=body)
         except Exception as e:
             logger.exception("HTTP request error when sending to Chatwoot: %s", e)
             raise
-
-        # Truncate response text for debug if very large
-        if isinstance(resp_text, str) and len(resp_text) > 1000:
-            logger.debug("Chatwoot response (truncated): %s", resp_text[:1000])
-        else:
-            logger.debug("Chatwoot response body: %s", resp_text)
 
         logger.info("Chatwoot returned status=%s", status)
         return status, resp_text

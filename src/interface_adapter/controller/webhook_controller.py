@@ -21,7 +21,6 @@ class WebhookController:
         msg_type = payload.get("message_type")
         sender = (payload.get("sender") or {}).get("id") if payload.get("sender") else None
         logger.info("Received webhook event=%s type=%s sender=%s", event, msg_type, sender)
-        logger.debug("Full webhook payload: %s", payload)
 
         try:
             result = await self.usecase.execute(payload)
@@ -29,5 +28,4 @@ class WebhookController:
             logger.exception("Unhandled error in usecase")
             raise
 
-        logger.debug("Usecase result: %s", result)
         return result

@@ -1,78 +1,64 @@
 # rasa_chatwoot
 
-Webhook minimo en FastAPI que escucha mensajes entrantes de Chatwoot y responde
-con un mensaje fijo "Ok". Este proyecto es un esqueleto para luego integrar
-con Rasa.
+Servicio FastAPI con un webhook que recibe eventos de Chatwoot y responde usando Chatwoot, con integracion opcional a Rasa.
 
-## Caracteristicas
-- Valida un secreto compartido en la URL del webhook.
-- Maneja solo eventos de mensajes entrantes.
-- Publica una respuesta en la misma conversacion via la API de Chatwoot.
+## Que hace
+- Expone un endpoint `POST /webhook/{secret}`.
+- Valida el secreto recibido contra `WEBHOOK_SECRET`.
+- Para eventos `message_created` con `message_type = incoming`, envia una respuesta a Chatwoot.
+- Si hay Rasa configurado y devuelve textos, usa el primer texto; si falla o no hay respuesta, responde con `"Bot no activado"`.
+- Si no hay Rasa o no hay contenido entrante, responde con `"Ok"`.
 
 ## Requisitos
-- Python 3.10+ (recomendado)
-- Cuenta de Chatwoot y un token de API de bot
+- Python 3.10+
 
 ## Instalacion
-1) Crear un virtualenv e instalar dependencias:
-
 ```bash
 python -m venv .venv
 .\.venv\Scripts\activate
 pip install -r requirements.txt
-python.exe -m pip install --upgrade pip
 ```
 
-2) Copiar el archivo de entorno y completar valores:
+## Variables de entorno leidas
+- `CHATWOOT_BASE_URL`
+- `CHATWOOT_BOT_TOKEN`
+- `WEBHOOK_SECRET`
+- `LOG_LEVEL`
+- `URL_WEBHOOK`
+- `RASA_REST_URL` (default: `http://localhost:5005/webhooks/rest/webhook`)
 
-```bash
-copy .env.example .env
-```
-
-Variables de entorno requeridas:
-- `CHATWOOT_BASE_URL`: URL base de tu instancia de Chatwoot (sin slash final)
-- `CHATWOOT_BOT_TOKEN`: Token de acceso API del bot
-- `WEBHOOK_SECRET`: Secreto compartido usado en la URL del webhook
-
-## Ejecucion
-
+## Ejecucion local
 ```bash
 python run.py
 ```
 
-El servicio escucha en `http://127.0.0.1:8000`.
+`run.py` levanta Uvicorn en `127.0.0.1` y usa:
+- `PORT` (default 8000)
+- `RELOAD` (default "0")
 
-## Produccion
-Por ahora el punto de entrada es `run.py`. A futuro se puede reemplazar por un
-comando de servidor (por ejemplo, uvicorn/gunicorn) segun el entorno.
-
-## Webhook
-Configura el webhook de Chatwoot asi:
+## Webhook en Chatwoot
+Configura el webhook con esta URL:
 
 ```
-http://your-host:8000/webhook/<WEBHOOK_SECRET>
+http://<host>:8000/webhook/<WEBHOOK_SECRET>
 ```
 
 El handler solo reacciona a:
 - `event = message_created`
 - `message_type = incoming`
 
-Cuando llega un mensaje entrante valido, responde con `"Ok"`.
-
-## Ejemplo de payload y respuesta
-Payload (entrada desde Chatwoot, reducido):
-
+## Payload esperado (ejemplo)
 ```json
 {
   "event": "message_created",
   "message_type": "incoming",
   "account": { "id": 1 },
-  "conversation": { "id": 123 }
+  "conversation": { "id": 123 },
+  "content": "Hola"
 }
 ```
 
-Respuesta (salida del webhook):
-
+## Respuesta del webhook (ejemplo)
 ```json
 {
   "ok": true,
@@ -81,6 +67,6 @@ Respuesta (salida del webhook):
 }
 ```
 
-## Notas
-- El cuerpo de respuesta esta fijo en `main.py`.
-- Los errores de la API de Chatwoot se devuelven en la respuesta del webhook.
+## Produccion
+- El punto de entrada actual es `run.py`.
+- Para produccion, se recomienda ejecutar Uvicorn/Gunicorn directamente contra `src.interface_adapter.presenters.webhook_api:app`.

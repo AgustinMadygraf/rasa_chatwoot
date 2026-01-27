@@ -19,7 +19,6 @@ class RasaHTTPGateway(RasaGateway):
         body = {"sender": sender_id, "message": text}
         logger.info("Sending message to Rasa sender=%s", sender_id)
         status, resp_text = await self.client.post_json(self.base_url, headers={}, body=body)
-        logger.debug("Rasa response status=%s body=%s", status, resp_text)
 
         if status >= 400:
             raise RuntimeError(f"Rasa error status={status}")

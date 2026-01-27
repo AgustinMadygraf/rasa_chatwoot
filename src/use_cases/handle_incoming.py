@@ -16,6 +16,7 @@ logger = get_logger(__name__)
 
 
 class HandleIncomingMessageUseCase:
+    "Caso de uso para manejar mensajes entrantes de Chatwoot."
     def __init__(
         self,
         gateway: ChatwootGateway,
@@ -27,20 +28,16 @@ class HandleIncomingMessageUseCase:
         self.rasa = rasa
 
     async def execute(self, payload: Dict[str, Any]) -> Dict[str, Any]:
-        # Only react to incoming messages
+        "Maneja un mensaje entrante de Chatwoot y responde usando Rasa si está configurado."
         event = payload.get("event")
         msg_type = payload.get("message_type")
-        logger.debug("Evaluating payload event=%s message_type=%s", event, msg_type)
         if event != "message_created" or msg_type != "incoming":
-            logger.debug("Ignoring non-incoming or non-message_created event")
             return {"ok": True}
 
         account_id = (payload.get("account") or {}).get("id")
         conversation_id = (payload.get("conversation") or {}).get("id")
         content_in = payload.get("content")
         sender_id = (payload.get("sender") or {}).get("id") if payload.get("sender") else None
-
-        logger.debug("Parsed account_id=%s conversation_id=%s", account_id, conversation_id)
 
         if not account_id or not conversation_id:
             logger.warning("Missing account_id or conversation_id in payload")
@@ -56,7 +53,7 @@ class HandleIncomingMessageUseCase:
                         created_at=datetime.utcnow(),
                     )
                 )
-            except Exception:
+            except (ValueError, TypeError, RuntimeError):
                 logger.exception("Failed to append incoming message to conversation store")
 
         content = "Ok"
@@ -69,7 +66,7 @@ class HandleIncomingMessageUseCase:
                 else:
                     content = "Bot no activado"
                     fallback_used = True
-            except Exception:
+            except (ValueError, RuntimeError, TimeoutError):
                 logger.exception("Error getting response from Rasa, falling back to default content")
                 content = "Bot no activado"
                 fallback_used = True
@@ -77,13 +74,11 @@ class HandleIncomingMessageUseCase:
 
         try:
             status, text = await self.gateway.send_message(account_id, conversation_id, content)
-        except Exception as e:
+        except (ValueError, RuntimeError, TimeoutError) as e:
             logger.exception("Error sending message via gateway: %s", e)
             return {"ok": False, "error": "request error", "detail": str(e)}
 
         logger.info("Chatwoot response status=%s", status)
-        logger.debug("Chatwoot response body=%s", text)
-
         if content and not fallback_used:
             try:
                 await self.store.append_message(
@@ -95,7 +90,7 @@ class HandleIncomingMessageUseCase:
                         created_at=datetime.utcnow(),
                     )
                 )
-            except Exception:
+            except (ValueError, TypeError, RuntimeError):
                 logger.exception("Failed to append outgoing message to conversation store")
 
         return {"ok": status < 400, "status": status, "detail": text}
