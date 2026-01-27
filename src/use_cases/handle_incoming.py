@@ -1,3 +1,7 @@
+"""
+Path: src/use_cases/handle_incoming.py
+"""
+
 from datetime import datetime
 from typing import Any, Dict
 
@@ -56,13 +60,19 @@ class HandleIncomingMessageUseCase:
                 logger.exception("Failed to append incoming message to conversation store")
 
         content = "Ok"
+        fallback_used = False
         if self.rasa and content_in:
             try:
                 responses = await self.rasa.send_message(str(conversation_id), str(content_in))
                 if responses:
                     content = responses[0]
+                else:
+                    content = "Bot no activado"
+                    fallback_used = True
             except Exception:
                 logger.exception("Error getting response from Rasa, falling back to default content")
+                content = "Bot no activado"
+                fallback_used = True
         logger.info("Sending reply content='%s' to account=%s conv=%s", content, account_id, conversation_id)
 
         try:
@@ -74,7 +84,7 @@ class HandleIncomingMessageUseCase:
         logger.info("Chatwoot response status=%s", status)
         logger.debug("Chatwoot response body=%s", text)
 
-        if content:
+        if content and not fallback_used:
             try:
                 await self.store.append_message(
                     Message(

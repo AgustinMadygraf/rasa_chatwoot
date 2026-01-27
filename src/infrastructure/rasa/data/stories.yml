@@ -1,0 +1,19 @@
+version: "3.1"
+
+stories:
+  - story: saludo feliz
+    steps:
+      - intent: saludo
+      - action: utter_saludo
+      - intent: estado_bien
+      - action: utter_feliz
+
+  - story: saludo triste
+    steps:
+      - intent: saludo
+      - action: utter_saludo
+      - intent: estado_mal
+      - action: utter_animar
+      - action: utter_te_ayudo
+      - intent: afirmar
+      - action: utter_feliz

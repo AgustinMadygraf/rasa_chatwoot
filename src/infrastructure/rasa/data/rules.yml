@@ -1,0 +1,12 @@
+version: "3.1"
+
+rules:
+  - rule: decir chau
+    steps:
+      - intent: despedida
+      - action: utter_despedida
+
+  - rule: responder a bot
+    steps:
+      - intent: desafio_bot
+      - action: utter_soy_un_bot

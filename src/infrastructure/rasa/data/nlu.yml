@@ -1,0 +1,45 @@
+version: "3.1"
+
+nlu:
+  - intent: saludo
+    examples: |
+      - hola
+      - buenas
+      - buen dia
+      - buenas tardes
+      - hey
+      - que tal
+  - intent: despedida
+    examples: |
+      - chau
+      - adios
+      - hasta luego
+      - nos vemos
+  - intent: afirmar
+    examples: |
+      - si
+      - claro
+      - correcto
+      - por supuesto
+  - intent: negar
+    examples: |
+      - no
+      - nunca
+      - no gracias
+  - intent: estado_bien
+    examples: |
+      - genial
+      - muy bien
+      - excelente
+      - feliz
+  - intent: estado_mal
+    examples: |
+      - mal
+      - triste
+      - no muy bien
+      - cansado
+  - intent: desafio_bot
+    examples: |
+      - eres un bot?
+      - sos un bot?
+      - hablo con un humano?
