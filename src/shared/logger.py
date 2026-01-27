@@ -1,13 +1,19 @@
 import logging
+import os
 from src.shared import config
 
 
 def _configure_root_logger():
+    if getattr(_configure_root_logger, "_configured", False):
+        return
     level_name = getattr(config, "LOG_LEVEL", "INFO")
     level = getattr(logging, level_name, logging.INFO)
-    logging.basicConfig(
-        level=level, format="%(asctime)s %(levelname)s %(name)s: %(message)s"
+    fmt = (
+        "%(asctime)s %(levelname)s %(process)d "
+        "%(name)s %(filename)s:%(lineno)d %(message)s"
     )
+    logging.basicConfig(level=level, format=fmt)
+    _configure_root_logger._configured = True
 
 
 def get_logger(name: str = __name__):
