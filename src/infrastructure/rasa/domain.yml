@@ -5,6 +5,7 @@ intents:
   - despedida
   - afirmar
   - negar
+  - pedir_mas_informacion
   - pedir_catalogo
   - pedir_precio
   - pedir_diseno
@@ -49,6 +50,8 @@ slots:
 responses:
   utter_saludo:
     - text: "Hola! Soy el asistente de Madypack. Te ayudo con bolsas de papel personalizadas."
+  utter_mas_informacion:
+    - text: "Buen día 👋 Gracias por escribirnos a MadyPack.\nSomos el equipo de ventas (Zona Norte, Buenos Aires).\nTrabajamos con bolsas de papel kraft de 100 g. Para cotizar, necesitamos:\nMedidas (ancho  alto  fuelle)\nCantidad (mínimo 1000 unidades)\n¿Requieren impresión? (sí/no)\nCon esa info te enviamos el presupuesto.\nHorario: lunes a viernes de 08 a 17 hs.\nQuedamos a disposición."
   utter_despedida:
     - text: "Gracias por contactar a Madypack. Hasta luego!"
   utter_soy_un_bot:

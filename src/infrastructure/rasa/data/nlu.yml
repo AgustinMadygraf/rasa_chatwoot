@@ -66,6 +66,9 @@ nlu:
       - me pasas presupuesto?
       - necesito una cotizacion
       - cuanto me saldria
+  - intent: pedir_mas_informacion
+    examples: |
+      - ¡Hola! Quiero más información.
   - intent: pedir_contacto
     examples: |
       - quiero hablar con un asesor

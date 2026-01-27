@@ -46,6 +46,11 @@ rules:
       - intent: consulta_proyecto
       - action: utter_consulta_proyecto
 
+  - rule: pedir mas informacion
+    steps:
+      - intent: pedir_mas_informacion
+      - action: utter_mas_informacion
+
   - rule: pedir sugerencias
     steps:
       - intent: pedir_sugerencias
