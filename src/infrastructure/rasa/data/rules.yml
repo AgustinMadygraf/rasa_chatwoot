@@ -20,8 +20,3 @@ rules:
     steps:
       - intent: pedir_mas_informacion
       - action: utter_mas_informacion
-
-  - rule: fallback
-    steps:
-      - intent: nlu_fallback
-      - action: utter_fallback

@@ -26,8 +26,3 @@ nlu:
     examples: |
       - /start
       - /inicio
-
-  - intent: nlu_fallback
-    examples: |
-      - ???
-      - no entiendo

@@ -14,5 +14,6 @@ pipeline:
 policies:
 - name: RulePolicy
   core_fallback_threshold: 0.3
-  core_fallback_action_name: "utter_fallback"
+  core_fallback_action_name: "action_default_fallback"
+  enable_fallback_prediction: true
 assistant_id: 20260127-205441-arctic-graph
