@@ -7,119 +7,27 @@ nlu:
       - buenas
       - buen dia
       - buenas tardes
-      - hey
-      - que tal
+
   - intent: despedida
     examples: |
       - chau
       - adios
       - hasta luego
       - nos vemos
-  - intent: afirmar
-    examples: |
-      - si
-      - claro
-      - correcto
-      - por supuesto
-  - intent: negar
-    examples: |
-      - no
-      - nunca
-      - no gracias
-  - intent: pedir_catalogo
-    examples: |
-      - quiero ver el catalogo
-      - tienen catalogo?
-      - muestrenme opciones de bolsas
-      - que modelos de bolsas tienen
-  - intent: pedir_precio
-    examples: |
-      - cuanto cuesta
-      - precio por bolsa
-      - necesito precio
-      - cuanto sale una bolsa personalizada
-  - intent: pedir_diseno
-    examples: |
-      - pueden imprimir mi logo
-      - quiero diseno personalizado
-      - hacen impresion personalizada?
-      - pueden hacer mi diseno
-  - intent: preguntar_minimo
-    examples: |
-      - cual es el minimo de produccion
-      - minimo de pedido
-      - pedido minimo
-  - intent: preguntar_envio
-    examples: |
-      - hacen envios?
-      - envian a mi ciudad
-      - cuanto cuesta el envio
-  - intent: preguntar_material
-    examples: |
-      - de que material son
-      - papel kraft o blanco?
-      - que tipo de papel usan
-      - tienen manijas de cuerda?
-  - intent: pedir_cotizacion
-    examples: |
-      - quiero una cotizacion
-      - me pasas presupuesto?
-      - necesito una cotizacion
-      - cuanto me saldria
+
   - intent: pedir_mas_informacion
     examples: |
-      - ¡Hola! Quiero más información.
-  - intent: pedir_contacto
+      - quiero mas informacion
+      - necesito mas detalles
+      - me podes pasar mas info
+      - quisiera mas informacion
+
+  - intent: start
     examples: |
-      - quiero hablar con un asesor
-      - me pueden contactar
-      - necesito contacto
-      - dejame tus datos
-  - intent: consulta_proyecto
+      - /start
+      - /inicio
+
+  - intent: nlu_fallback
     examples: |
-      - quiero mas informacion para un proyecto
-      - estoy armando un local y necesito packaging
-      - tengo un proyecto y necesito bolsas [economicas](presupuesto)
-      - abro un local y necesito bolsas personalizadas
-      - proyecto para un local de [medias](rubro)
-      - packaging economico para arrancar
-      - necesito opciones economicas para empezar
-      - estoy con un proyecto para abrir un local de medias y necesito packaging economico
-      - necesito packaging economico para arrancar con un local exclusivo de medias
-      - busco bolsas personalizadas economicas para un local de medias
-      - presupuesto bajo
-      - necesito algo [economico](presupuesto)
-      - quiero una opcion [economica](presupuesto)
-      - presupuesto economico para arrancar
-      - busco algo economico para empezar
-      - estoy con un proyecto para abrir un local exclusivo de [medias](rubro) y necesito packaging [economico](presupuesto)
-      - necesito packaging [economico](presupuesto) para [arrancar](objetivo)
-  - intent: pedir_sugerencias
-    examples: |
-      - acepto sugerencias
-      - que me sugeris?
-      - recomiendame opciones
-      - que me recomiendas
-  - intent: preguntar_tamano
-    examples: |
-      - que tamanos tienen
-      - que tamano puedo pedir
-      - tamanos disponibles
-      - medidas de las bolsas
-  - intent: informar_cantidad
-    examples: |
-      - necesito 100 bolsas
-      - quiero 500 unidades
-      - serian 1000 bolsas
-      - unas 200 bolsas
-  - intent: elegir_acabado
-    examples: |
-      - acabado mate
-      - acabado brillo
-      - quiero laminado
-      - prefiero mate
-  - intent: desafio_bot
-    examples: |
-      - eres un bot?
-      - sos un bot?
-      - hablo con un humano?
+      - ???
+      - no entiendo

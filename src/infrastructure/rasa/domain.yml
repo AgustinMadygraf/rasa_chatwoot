@@ -3,87 +3,19 @@ version: "3.1"
 intents:
   - saludo
   - despedida
-  - afirmar
-  - negar
   - pedir_mas_informacion
-  - pedir_catalogo
-  - pedir_precio
-  - pedir_diseno
-  - preguntar_minimo
-  - preguntar_envio
-  - preguntar_material
-  - pedir_cotizacion
-  - pedir_contacto
-  - preguntar_tamano
-  - informar_cantidad
-  - elegir_acabado
-  - consulta_proyecto
-  - pedir_sugerencias
-  - desafio_bot
+  - start
   - nlu_fallback
-
-entities:
-  - presupuesto
-  - rubro
-  - objetivo
-
-slots:
-  presupuesto:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: presupuesto
-  rubro:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: rubro
-  objetivo:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: objetivo
 
 responses:
   utter_saludo:
     - text: "Hola! Soy el asistente de Madypack. Te ayudo con bolsas de papel personalizadas."
-  utter_mas_informacion:
-    - text: "Buen día 👋 Gracias por escribirnos a MadyPack.\nSomos el equipo de ventas (Zona Norte, Buenos Aires).\nTrabajamos con bolsas de papel kraft de 100 g. Para cotizar, necesitamos:\nMedidas (ancho  alto  fuelle)\nCantidad (mínimo 1000 unidades)\n¿Requieren impresión? (sí/no)\nCon esa info te enviamos el presupuesto.\nHorario: lunes a viernes de 08 a 17 hs.\nQuedamos a disposición."
   utter_despedida:
     - text: "Gracias por contactar a Madypack. Hasta luego!"
-  utter_soy_un_bot:
-    - text: "Soy un asistente virtual de Madypack para bolsas de papel personalizadas."
+  utter_mas_informacion:
+    - text: "Buen dia! Gracias por escribirnos a MadyPack. Para cotizar, necesitamos medidas, cantidad y si requiere impresion."
   utter_fallback:
-    - text: "Disculpe, no entendi"
-  utter_catalogo:
-    - text: "Trabajamos bolsas de papel personalizadas con manijas de cuerdas de papel retorcida. Puedo ayudarte con tamanos, materiales y acabados."
-  utter_precio_base:
-    - text: "El precio depende de tamanos, cantidad y tipo de impresion. Decime medidas y cantidad y te preparo una cotizacion."
-  utter_diseno:
-    - text: "Podemos imprimir tu logo y diseno. Aceptamos archivos en PDF/AI/EPS. Queres acabado mate o brillo?"
-  utter_minimo:
-    - text: "El minimo de produccion depende del tamano. Decime cantidad estimada y te confirmo el minimo."
-  utter_envio:
-    - text: "Hacemos envios. Indica tu ciudad y cantidad para cotizar tiempos y costo."
-  utter_material:
-    - text: "Usamos papel kraft y papel blanco, con manijas de cuerda de papel retorcida. Queres kraft natural o blanco?"
-  utter_cotizacion:
-    - text: "Para cotizar necesito: tamano, cantidad, tipo de papel y si lleva impresion. Me compartis esos datos?"
-  utter_contacto:
-    - text: "Puedo tomar tus datos de contacto y coordinar con un asesor de Madypack. Decime tu nombre y telefono o email."
-  utter_tamano:
-    - text: "Que tamano necesitas? Por ejemplo, 20x30x10 cm. Indica ancho x alto x fuelle."
-  utter_cantidad:
-    - text: "Cuantas bolsas necesitas? Indicame la cantidad aproximada."
-  utter_acabado:
-    - text: "Preferis acabado mate o brillo? Tambien podemos hacer laminado."
-  utter_consulta_proyecto:
-    - text: "Gracias por la info. Para sugerirte una opcion economica, decime tamano, cantidad, tipo de papel (kraft o blanco) y acabado (mate o brillo)."
-  utter_sugerencias:
-    - text: "Puedo sugerirte opciones economicas en kraft con manija de cuerda retorcida. Decime tamano y cantidad para ajustarlo."
+    - text: "Disculpe, no entendi."
 
 session_config:
   session_expiration_time: 60
