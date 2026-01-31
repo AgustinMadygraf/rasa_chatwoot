@@ -1,9 +1,9 @@
 from typing import List, Sequence
 
+from src.application.ports.rasa_gateway import RasaGateway
 from src.infrastructure.httpx.http_client import HttpxClient
 from src.shared import config
 from src.shared.logger import get_logger
-from src.use_cases.rasa_gateway import RasaGateway
 
 logger = get_logger(__name__)
 
@@ -23,7 +23,6 @@ class RasaHTTPGateway(RasaGateway):
         if status >= 400:
             raise RuntimeError(f"Rasa error status={status}")
 
-        # Rasa REST webhook returns a JSON list with objects that may contain 'text'
         try:
             import json
 

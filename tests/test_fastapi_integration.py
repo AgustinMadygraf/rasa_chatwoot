@@ -1,5 +1,3 @@
-import os
-
 from fastapi.testclient import TestClient
 
 from src.interface_adapter.presenters.webhook_api import app
@@ -21,7 +19,7 @@ def test_webhook_accepts_incoming(monkeypatch):
     monkeypatch.setattr(config, "CHATWOOT_BASE_URL", "https://example.com")
     monkeypatch.setattr(config, "CHATWOOT_BOT_TOKEN", "token")
 
-    from src.interface_adapter.gateways import chatwoot_http
+    from src.infrastructure.chatwoot_api import chatwoot_http
     from src.infrastructure.rasa import rasa_http
 
     async def _fake_send(self, account_id, conversation_id, content):

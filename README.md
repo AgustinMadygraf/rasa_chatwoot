@@ -1,13 +1,14 @@
 # rasa_chatwoot
 
-Servicio FastAPI con un webhook que recibe eventos de Chatwoot y responde usando Chatwoot, con integracion opcional a Rasa.
+Servicio FastAPI con un webhook que recibe eventos de Chatwoot y responde usando Chatwoot,
+con integracion opcional a Rasa. Incluye scripts para correr Rasa, entrenar y abrir tunel ngrok.
 
 ## Que hace
 - Expone un endpoint `POST /webhook/{secret}`.
 - Valida el secreto recibido contra `WEBHOOK_SECRET`.
 - Para eventos `message_created` con `message_type = incoming`, envia una respuesta a Chatwoot.
-- Si hay Rasa configurado y devuelve textos, usa el primer texto; si falla o no hay respuesta, responde con `"Bot no activado"`.
-- Si no hay Rasa o no hay contenido entrante, responde con `"Ok"`.
+- Si Rasa devuelve textos, usa el primero; si falla o no hay respuesta, responde `"Bot no activado"`.
+- Si no hay contenido entrante, responde `"Ok"`.
 
 ## Requisitos
 - Python 3.10+
@@ -15,26 +16,30 @@ Servicio FastAPI con un webhook que recibe eventos de Chatwoot y responde usando
 ## Instalacion
 ```bash
 python -m venv .venv
-.\.venv\Scripts\activate
+.\.venv\Scriptsctivate
 pip install -r requirements.txt
 ```
 
-## Variables de entorno leidas
+## Variables de entorno
 - `CHATWOOT_BASE_URL`
 - `CHATWOOT_BOT_TOKEN`
 - `WEBHOOK_SECRET`
 - `LOG_LEVEL`
-- `URL_WEBHOOK`
-- `RASA_REST_URL` (default: `http://localhost:5005/webhooks/rest/webhook`)
-
-## Ejecucion local
-```bash
-python run.py
-```
-
-`run.py` levanta Uvicorn en `127.0.0.1` y usa:
 - `PORT` (default 8000)
 - `RELOAD` (default "0")
+- `URL_WEBHOOK` (para ngrok)
+
+## Rasa
+- `RASA_BASE_URL` esta hardcodeado en `src/shared/config.py` como `http://localhost:5005`.
+- El proyecto Rasa vive en `src/infrastructure/rasa` (config.yml, domain.yml, data/, models/).
+
+## Entrypoints
+```bash
+python run_chatwoot_rasa_bridge.py
+python run_rasa_server.py
+python run_rasa_train.py
+python run_ngrok_tunnel.py
+```
 
 ## Webhook en Chatwoot
 Configura el webhook con esta URL:
@@ -68,5 +73,5 @@ El handler solo reacciona a:
 ```
 
 ## Produccion
-- El punto de entrada actual es `run.py`.
-- Para produccion, se recomienda ejecutar Uvicorn/Gunicorn directamente contra `src.interface_adapter.presenters.webhook_api:app`.
+- Se recomienda ejecutar Uvicorn/Gunicorn directamente contra
+  `src.interface_adapter.presenters.webhook_api:app`.

@@ -1,12 +1,11 @@
-import os
-import subprocess
-import sys
+from dotenv import load_dotenv
 
 
 def main() -> int:
-    rasa_project = os.path.join("src", "infrastructure", "rasa")
-    cmd = [sys.executable, "-m", "rasa", "train"]
-    return subprocess.call(cmd, cwd=rasa_project)
+    load_dotenv()
+    from src.interface_adapter.controllers.rasa_train_controller import RasaTrainController
+
+    return RasaTrainController().run()
 
 
 if __name__ == "__main__":

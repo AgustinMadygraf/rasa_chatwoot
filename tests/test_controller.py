@@ -4,7 +4,7 @@ import pytest
 from fastapi import HTTPException
 from starlette.requests import Request
 
-from src.interface_adapter.controller.webhook_controller import WebhookController
+from src.interface_adapter.controllers.webhook_controller import WebhookController
 from src.shared import config
 
 

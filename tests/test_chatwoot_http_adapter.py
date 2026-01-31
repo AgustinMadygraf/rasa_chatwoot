@@ -1,6 +1,6 @@
 import pytest
 
-from src.interface_adapter.gateways.chatwoot_http import ChatwootHTTPAdapter
+from src.infrastructure.chatwoot_api.chatwoot_http import ChatwootHTTPAdapter
 
 
 class FakeClient:

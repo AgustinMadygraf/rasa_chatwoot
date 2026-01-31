@@ -1,27 +1,11 @@
-import os
-import subprocess
-import sys
-from urllib.parse import urlparse
-
-from src.shared import config
-
-
-def _extract_port(url: str) -> str:
-    parsed = urlparse(url if "://" in url else f"http://{url}")
-    if parsed.port:
-        return str(parsed.port)
-    return "5005"
+from dotenv import load_dotenv
 
 
 def main() -> int:
-    url = (config.RASA_REST_URL or "").strip()
-    if not url:
-        print("ERROR: RASA_REST_URL not set", file=sys.stderr)
-        return 1
-    rasa_project = os.path.join("src", "infrastructure", "rasa")
-    port = _extract_port(url)
-    cmd = [sys.executable, "-m", "rasa", "run", "--enable-api", "--cors", "*", "--port", port]
-    return subprocess.call(cmd, cwd=rasa_project)
+    load_dotenv()
+    from src.interface_adapter.controllers.rasa_server_controller import RasaServerController
+
+    return RasaServerController().run()
 
 
 if __name__ == "__main__":

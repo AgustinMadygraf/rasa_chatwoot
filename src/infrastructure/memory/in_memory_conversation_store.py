@@ -1,8 +1,8 @@
 from collections import defaultdict, deque
 from typing import Deque, Dict, Sequence, Tuple
 
-from src.entities.message import Message
-from src.use_cases.conversation_store import ConversationStore
+from src.domain.message import Message
+from src.application.ports.conversation_store import ConversationStore
 
 
 class InMemoryConversationStore(ConversationStore):
